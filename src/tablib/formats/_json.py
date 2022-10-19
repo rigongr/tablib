@@ -4,7 +4,7 @@ import decimal
 import json
 from uuid import UUID
 
-import src.tablib as tablib
+import tablib as tablib
 
 
 def serialize_objects_handler(obj):

@@ -5,8 +5,8 @@ from functools import partialmethod
 from importlib import import_module
 from importlib.util import find_spec
 
-from src.tablib.exceptions import UnsupportedFormat
-from src.tablib.utils import normalize_input
+from tablib.exceptions import UnsupportedFormat
+from tablib.utils import normalize_input
 
 from ._csv import CSVFormat
 from ._json import JSONFormat
@@ -70,7 +70,7 @@ class Registry:
     _formats = OrderedDict()
 
     def register(self, key, format_or_path):
-        from src.tablib.core import Databook, Dataset
+        from tablib.core import Databook, Dataset
 
         # Create Databook.<format> read or read/write properties
         setattr(Databook, key, ImportExportBookDescriptor(key, format_or_path))

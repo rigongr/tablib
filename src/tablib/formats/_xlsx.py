@@ -10,7 +10,7 @@ from openpyxl.utils import get_column_letter
 from openpyxl.workbook import Workbook
 from openpyxl.writer.excel import ExcelWriter
 
-import src.tablib as tablib
+import tablib as tablib
 
 INVALID_TITLE_REGEX = re.compile(r'[\\*?:/\[\]]')
 

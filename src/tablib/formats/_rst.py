@@ -137,8 +137,8 @@ class ReSTFormat:
         Returns reStructuredText grid table representation of dataset.
 
 
-        >>> from src.tablib import Dataset
-        >>> from src.tablib.formats import registry
+        >>> from tablib import Dataset
+        >>> from tablib.formats import registry
         >>> bits = ((0, 0), (1, 0), (0, 1), (1, 1))
         >>> data = Dataset()
         >>> data.headers = ['A', 'B', 'A and B']
@@ -189,7 +189,7 @@ class ReSTFormat:
         Use a simple table if the text in the first column is never wrapped
 
 
-        >>> from src.tablib.formats import registry
+        >>> from tablib.formats import registry
         >>> rst = registry.get_format('rst')
         >>> rst._use_simple_table('menu', ['egg', 'bacon'], 10)
         True
@@ -216,7 +216,7 @@ class ReSTFormat:
         wrapped, otherwise returns a grid table.
 
 
-        >>> from src.tablib import Dataset
+        >>> from tablib import Dataset
         >>> bits = ((0, 0), (1, 0), (0, 1), (1, 1))
         >>> data = Dataset()
         >>> data.headers = ['A', 'B', 'A and B']

@@ -3,7 +3,7 @@
 
 import yaml
 
-import src.tablib as tablib
+import tablib
 
 
 class YAMLFormat:
