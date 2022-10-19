@@ -158,7 +158,7 @@ Export data as a reStructuredText_ table representation of a dataset. The
 Exporting returns a simple table if the text in the first column is never
 wrapped, otherwise returns a grid table::
 
-    >>> from tablib import Dataset
+    >>> from src.tablib import Dataset
     >>> bits = ((0, 0), (1, 0), (0, 1), (1, 1))
     >>> data = Dataset()
     >>> data.headers = ['A', 'B', 'A and B']

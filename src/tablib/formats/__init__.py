@@ -5,8 +5,8 @@ from functools import partialmethod
 from importlib import import_module
 from importlib.util import find_spec
 
-from tablib.exceptions import UnsupportedFormat
-from tablib.utils import normalize_input
+from src.tablib.exceptions import UnsupportedFormat
+from src.tablib.utils import normalize_input
 
 from ._csv import CSVFormat
 from ._json import JSONFormat
@@ -70,7 +70,7 @@ class Registry:
     _formats = OrderedDict()
 
     def register(self, key, format_or_path):
-        from tablib.core import Databook, Dataset
+        from src.tablib.core import Databook, Dataset
 
         # Create Databook.<format> read or read/write properties
         setattr(Databook, key, ImportExportBookDescriptor(key, format_or_path))
@@ -91,25 +91,25 @@ class Registry:
         self.register('json', JSONFormat())
         # xlsx before as xls (xlrd) can also read xlsx
         if find_spec('openpyxl'):
-            self.register('xlsx', 'tablib.formats._xlsx.XLSXFormat')
+            self.register('xlsx', 'src.tablib.formats._xlsx.XLSXFormat')
         if find_spec('xlrd') and find_spec('xlwt'):
-            self.register('xls', 'tablib.formats._xls.XLSFormat')
+            self.register('xls', 'src.tablib.formats._xls.XLSFormat')
         if find_spec('yaml'):
-            self.register('yaml', 'tablib.formats._yaml.YAMLFormat')
+            self.register('yaml', 'src.tablib.formats._yaml.YAMLFormat')
         self.register('csv', CSVFormat())
         self.register('tsv', TSVFormat())
         if find_spec('odf'):
-            self.register('ods', 'tablib.formats._ods.ODSFormat')
-        self.register('dbf', 'tablib.formats._dbf.DBFFormat')
+            self.register('ods', 'src.tablib.formats._ods.ODSFormat')
+        self.register('dbf', 'src.tablib.formats._dbf.DBFFormat')
         if find_spec('MarkupPy'):
-            self.register('html', 'tablib.formats._html.HTMLFormat')
-        self.register('jira', 'tablib.formats._jira.JIRAFormat')
-        self.register('latex', 'tablib.formats._latex.LATEXFormat')
+            self.register('html', 'src.tablib.formats._html.HTMLFormat')
+        self.register('jira', 'src.tablib.formats._jira.JIRAFormat')
+        self.register('latex', 'src.tablib.formats._latex.LATEXFormat')
         if find_spec('pandas'):
-            self.register('df', 'tablib.formats._df.DataFrameFormat')
-        self.register('rst', 'tablib.formats._rst.ReSTFormat')
+            self.register('df', 'src.tablib.formats._df.DataFrameFormat')
+        self.register('rst', 'src.tablib.formats._rst.ReSTFormat')
         if find_spec('tabulate'):
-            self.register('cli', 'tablib.formats._cli.CLIFormat')
+            self.register('cli', 'src.tablib.formats._cli.CLIFormat')
 
     def formats(self):
         for key, frm in self._formats.items():

@@ -5,12 +5,12 @@ import re
 from io import BytesIO
 
 from openpyxl.reader.excel import ExcelReader, load_workbook
-from openpyxl.styles import Alignment, Font
+from openpyxl.styles import Alignment, Font, PatternFill
 from openpyxl.utils import get_column_letter
 from openpyxl.workbook import Workbook
 from openpyxl.writer.excel import ExcelWriter
 
-import tablib
+import src.tablib as tablib
 
 INVALID_TITLE_REGEX = re.compile(r'[\\*?:/\[\]]')
 
@@ -35,7 +35,7 @@ class XLSXFormat:
             return False
 
     @classmethod
-    def export_set(cls, dataset, freeze_panes=True, invalid_char_subst="-"):
+    def export_set(cls, dataset, freeze_panes=True, invalid_char_subst="-", something=None):
         """Returns XLSX representation of Dataset.
 
         If dataset.title contains characters which are considered invalid for an XLSX file
@@ -44,7 +44,7 @@ class XLSXFormat:
         """
         wb = Workbook()
         ws = wb.worksheets[0]
-
+        breakpoint()
         ws.title = (
             safe_xlsx_sheet_title(dataset.title, invalid_char_subst)
             if dataset.title else 'Tablib Dataset'
@@ -59,12 +59,13 @@ class XLSXFormat:
     @classmethod
     def export_book(cls, databook, freeze_panes=True, invalid_char_subst="-"):
         """Returns XLSX representation of DataBook.
-
+        
         If dataset.title contains characters which are considered invalid for an XLSX file
         sheet name (http://www.excelcodex.com/2012/06/worksheets-naming-conventions/), they will
         be replaced with `invalid_char_subst`.
         """
-
+        print('in here')
+        breakpoint()
         wb = Workbook()
         for sheet in wb.worksheets:
             wb.remove(sheet)
@@ -133,7 +134,11 @@ class XLSXFormat:
             _offset = i
             _package.insert((sep[0] + _offset), (sep[1],))
 
-        bold = Font(bold=True)
+        bold = Font(bold=True, 
+                    color='00FFFFFF',
+                    
+                )
+
         wrap_text = Alignment(wrap_text=True)
 
         for i, row in enumerate(_package):
@@ -141,10 +146,12 @@ class XLSXFormat:
             for j, col in enumerate(row):
                 col_idx = get_column_letter(j + 1)
                 cell = ws[f'{col_idx}{row_number}']
-
+                cell.font = Font(size=10, name='Arial')
+                cell.alignment = Alignment(horizontal='left', vertical='top')
                 # bold headers
                 if (row_number == 1) and dataset.headers:
                     cell.font = bold
+                    cell.fill = PatternFill("solid", bgColor='00000000')
                     if freeze_panes:
                         #  Export Freeze only after first Line
                         ws.freeze_panes = 'A2'

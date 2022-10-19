@@ -133,7 +133,7 @@ registered.
 
 2. Register your class::
 
-    from tablib.formats import registry
+    from src.tablib.formats import registry
 
     registry.register('xxx', MyXXXFormatClass())
 
